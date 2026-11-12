@@ -1,23 +1,23 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteLayout } from "@/components/SiteLayout";
+import { Placeholder } from "@/components/Placeholder";
+import { seo } from "@/lib/site";
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => seo("Home", "Qinghe Atelier — a fictional small studio of quiet, handmade goods.", "/"),
+  component: Home,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <SiteLayout>
+      <section className="grid items-center gap-10 md:grid-cols-2">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Est. placeholder year</p>
+          <h1 className="mt-4 font-display text-5xl leading-tight text-foreground">Quiet objects, made slowly.</h1>
+          <p className="mt-5 text-muted-foreground">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+          <Link to="/products" className="mt-8 inline-block rounded-sm bg-primary px-5 py-3 text-sm text-primary-foreground hover:bg-primary/90">View products</Link>
+        </div>
+        <Placeholder label="Hero image" className="aspect-[4/5]" />
+      </section>
+    </SiteLayout>
   );
 }
